@@ -1,0 +1,54 @@
+# Maven
+target/
+
+# Logs
+logs/
+*.log
+
+# Allure Reports
+allure-results/
+allure-report/
+
+# Screenshots & Videos
+screenshots/
+videos/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# IntelliJ Workspace Files
+workspace.xml
+tasks.xml
+usage.statistics.xml
+dictionaries/
+shelf/
+
+# IntelliJ HTTP Client
+.httpRequests/
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Java
+*.class
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Test Output
+test-output/
+surefire-reports/
+
+# Dependency Cache
+.mvn/
+
+# Environment Files
+.env
