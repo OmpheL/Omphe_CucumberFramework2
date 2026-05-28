@@ -1,9 +1,19 @@
 package pages;
 
+import org.openqa.selenium.By;
+
 public class LandingPage extends BasePage {
 
-    public String getPageTitle() {
+    By loginButton =
+            By.xpath("//button[.//span[text()='Login']]");
 
-        return driver.getTitle();
+    public LandingPage() {
+
+        super();
+    }
+
+    public void clickLogin() {
+
+        click(loginButton);
     }
 }
