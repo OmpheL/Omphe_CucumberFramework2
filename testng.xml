@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Omphe_CucumberFramework Suite">
+
+    <test name="Cucumber Test Execution">
+
+        <classes>
+            <class name="stepdefinitions.GroupSteps"/>
+        </classes>
+
+    </test>
+
+</suite>
