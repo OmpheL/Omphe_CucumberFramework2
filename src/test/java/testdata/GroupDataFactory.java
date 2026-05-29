@@ -17,9 +17,7 @@ public class GroupDataFactory {
                 faker.regexify("[A-Za-z0-9]{6}") + " Group",
                 "This is a test group",
                 String.valueOf(LocalDate.now().getYear()),
-                String.valueOf(
-                        faker.number().numberBetween(20, 100)
-                ),
+                String.valueOf(faker.number().numberBetween(20, 100)),
                 LocalDate.now().toString(),
                 LocalDate.now().plusMonths(6).toString()
         );
