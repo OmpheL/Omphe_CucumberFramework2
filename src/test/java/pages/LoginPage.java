@@ -13,11 +13,6 @@ public class LoginPage extends BasePage {
     private final By submitButton =
             By.id("login-submit");
 
-    public LoginPage() {
-
-        super();
-    }
-
     public void enterEmail(String userEmail) {
 
         type(email, userEmail);
@@ -33,7 +28,9 @@ public class LoginPage extends BasePage {
         click(submitButton);
     }
 
-    public void login(String userEmail, String userPassword) {
+
+    public void login(String userEmail,
+                      String userPassword) {
 
         enterEmail(userEmail);
 
@@ -41,4 +38,5 @@ public class LoginPage extends BasePage {
 
         clickSubmit();
     }
+
 }
