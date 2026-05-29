@@ -16,4 +16,15 @@ public class LandingPage extends BasePage {
 
         click(loginButton);
     }
+
+    public void acceptAlert() {
+
+        waitHelper.waitForAlert();
+
+        try {
+            driver.switchTo().alert().accept();
+        } catch (Exception e) {
+            throw new RuntimeException("Alert was present but could not be accepted", e);
+        }
+    }
 }

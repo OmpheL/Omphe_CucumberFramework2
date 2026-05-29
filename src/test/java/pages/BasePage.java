@@ -1,55 +1,41 @@
 package pages;
 
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import utilities.DriverFactory;
-
-import java.time.Duration;
+import utilities.WaitHelper;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
 
     protected WebDriver driver;
-    protected WebDriverWait wait;
+    protected WaitHelper waitHelper;
 
     public BasePage() {
 
         driver = DriverFactory.getDriver();
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        waitHelper = new WaitHelper(driver);
 
         PageFactory.initElements(driver, this);
-    }
-
-    // Wait for Visibility
-    public WebElement waitForVisibility(By locator) {
-
-        return wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    // Wait for Clickable
-    public WebElement waitForClickability(By locator) {
-
-        return wait.until(
-                ExpectedConditions.elementToBeClickable(locator));
     }
 
     // Click Element
     public void click(By locator) {
 
-        waitForClickability(locator).click();
+        waitHelper.waitForClickability(locator).click();
     }
 
     // Type Text
     public void type(By locator, String text) {
 
-        WebElement element = waitForVisibility(locator);
+        WebElement element =
+                waitHelper.waitForVisibility(locator);
 
         element.clear();
         element.sendKeys(text);
@@ -58,19 +44,19 @@ public class BasePage {
     // Get Text
     public String getText(By locator) {
 
-        return waitForVisibility(locator).getText();
+        return waitHelper.waitForVisibility(locator).getText();
     }
 
     // Check Displayed
     public boolean isDisplayed(By locator) {
 
-        return waitForVisibility(locator).isDisplayed();
+        return waitHelper.waitForVisibility(locator).isDisplayed();
     }
 
     // Clear Field
     public void clear(By locator) {
 
-        waitForVisibility(locator).clear();
+        waitHelper.waitForVisibility(locator).clear();
     }
 
     // Get Current URL
@@ -84,5 +70,57 @@ public class BasePage {
 
         return driver.getTitle();
     }
-}
 
+    // Select Date
+    public void selectDate(By locator, String dateValue) {
+
+        WebElement dateField =
+                waitHelper.waitForVisibility(locator);
+
+        // Clear existing value
+        dateField.sendKeys(Keys.CONTROL + "a");
+        dateField.sendKeys(Keys.DELETE);
+
+        // Enter date (yyyy-MM-dd)
+        dateField.sendKeys(dateValue);
+    }
+
+    // Wait for alert and accept it
+    public void acceptAlert() {
+
+        waitHelper.waitForAlert(); // add this helper method below
+        driver.switchTo().alert().accept();
+    }
+
+    // Generic select by visible text
+    protected void selectByVisibleText(By locator, String visibleText) {
+        WebElement element = driver.findElement(locator);
+        Select select = new Select(element);
+        select.selectByVisibleText(visibleText);
+    }
+
+    // Select by value (UUID cases)
+    protected void selectByValue(By locator, String value) {
+        WebElement element = driver.findElement(locator);
+        Select select = new Select(element);
+        select.selectByValue(value);
+    }
+
+    // Select by index
+    protected void selectByIndex(By locator, int index) {
+        WebElement element = driver.findElement(locator);
+        Select select = new Select(element);
+        select.selectByIndex(index);
+    }
+
+    public String getAlertTextAndAccept() {
+
+        waitHelper.waitForAlert();
+
+        String text = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+
+        return text;
+    }
+
+}
