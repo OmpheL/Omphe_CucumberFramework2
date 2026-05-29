@@ -4,14 +4,18 @@ import org.openqa.selenium.By;
 
 public class LoginPage extends BasePage {
 
-    private final By email =
+    By email =
             By.id("login-email");
 
-    private final By password =
+    By password =
             By.id("login-password");
 
-    private final By submitButton =
+    By submitButton =
             By.id("login-submit");
+
+    By signUpButton = By.id("signup-toggle");
+
+
 
     public void enterEmail(String userEmail) {
 
@@ -39,4 +43,7 @@ public class LoginPage extends BasePage {
         clickSubmit();
     }
 
+    public void clickSignup() {
+        click(signUpButton);
+    }
 }
