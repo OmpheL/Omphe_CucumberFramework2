@@ -13,6 +13,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
     steps:
 
       # =========================
@@ -36,27 +39,56 @@ jobs:
       # Run Tests
       # =========================
       - name: Run Maven Tests
-        run: mvn clean test
+        run: mvn clean test -X
+
+      # =========================
+      # Debug Generated Files
+      # =========================
+      - name: Debug Generated Files
+        if: always()
+
+        run: |
+          echo "===== TARGET ====="
+          ls -R target || true
+
+          echo "===== TEST OUTPUT ====="
+          ls -R test-output || true
+
+          echo "===== HTML FILES ====="
+          find . -name "*.html"
+
+          echo "===== JSON FILES ====="
+          find . -name "*.json"
 
       # =========================
       # Upload Extent Report
       # =========================
       - name: Upload Extent Report
+        if: always()
+
         uses: actions/upload-artifact@v4
 
         with:
           name: extent-report
-          path: test-output/ExtentReport/
+          path: |
+            test-output/
+            **/ExtentReport.html
+            **/*.html
 
       # =========================
       # Upload Cucumber Report
       # =========================
       - name: Upload Cucumber Report
+        if: always()
+
         uses: actions/upload-artifact@v4
 
         with:
           name: cucumber-report
-          path: target/cucumber-report.html
+          path: |
+            target/
+            **/cucumber-report.html
+            **/*.json
 
       # =========================
       # Upload Screenshots
@@ -68,14 +100,6 @@ jobs:
 
         with:
           name: screenshots
-          path: test-output/screenshots/
-
-      # =========================
-      # Upload JSON Report
-      # =========================
-      - name: Upload Cucumber JSON
-        uses: actions/upload-artifact@v4
-
-        with:
-          name: cucumber-json
-          path: target/cucumber.json
+          path: |
+            test-output/screenshots/
+            **/*.png
