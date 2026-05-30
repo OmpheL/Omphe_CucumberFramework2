@@ -79,4 +79,3 @@ jobs:
         with:
           name: cucumber-json
           path: target/cucumber.json
-```
