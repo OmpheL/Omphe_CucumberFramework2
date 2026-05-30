@@ -10,7 +10,7 @@ import org.apache.commons.io.FileUtils;
 
 public class ScreenshotUtil {
 
-    public static void captureScreenshot(String name) {
+    public static String captureScreenshot(String name) {
 
         try {
 
@@ -36,5 +36,6 @@ public class ScreenshotUtil {
 
             e.printStackTrace();
         }
+        return null;
     }
 }

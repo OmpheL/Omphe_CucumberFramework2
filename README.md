@@ -1,7 +1,6 @@
-
 # 📘 Omphe_CucumberFramework
 
-A **Selenium + Cucumber + TestNG + Allure** hybrid automation framework designed for UI testing with scalable architecture and reporting.
+A **Selenium + Cucumber + TestNG + Extent Reports** hybrid automation framework designed for scalable UI test automation using modern best practices.
 
 ---
 
@@ -11,7 +10,7 @@ A **Selenium + Cucumber + TestNG + Allure** hybrid automation framework designed
 * Selenium WebDriver 4
 * Cucumber 7 (BDD)
 * TestNG
-* Allure Reports
+* Extent Reports
 * WebDriverManager
 * Maven
 
@@ -27,6 +26,7 @@ src
  │    │    ├── hooks
  │    │    ├── models
  │    │    ├── pages
+ │    │    ├── reports
  │    │    ├── runners
  │    │    ├── stepdefinitions
  │    │    ├── testdata
@@ -35,6 +35,7 @@ src
  │    ├── resources
  │         ├── features
  │         ├── testdata
+ │         ├── extent.properties
 ```
 
 ---
@@ -45,30 +46,30 @@ src
 * BDD using Cucumber
 * Reusable BasePage methods
 * Alert handling support
-* Wait utilities (explicit waits)
+* Explicit wait utilities
 * Context sharing between steps
 * Data-driven testing support
-* Allure reporting integration
-* Screenshot support in failures
-* Parallel execution ready
+* Extent Reports integration
+* Screenshot capture on failure
+* Clean and scalable architecture
+* CI/CD ready framework
 
 ---
 
 # 📊 Reporting
 
-## ✔ Allure Report
+## ✔ Extent Report
 
 Generate and view report:
 
 ```bash
 mvn clean test
-mvn allure:serve
 ```
 
-OR
+Report location:
 
-```bash
-allure serve target/allure-results
+```text
+test-output/ExtentReport/ExtentReport.html
 ```
 
 ---
@@ -83,7 +84,7 @@ target/cucumber-report.html
 
 # ▶️ How to Run Tests
 
-### Run all tests:
+## Run all tests
 
 ```bash
 mvn clean test
@@ -109,11 +110,12 @@ Feature: Group Management
 
 # 🧠 Key Design Principles
 
-* Separation of concerns (Pages, Steps, Utilities)
+* Separation of concerns
 * Reusable components
 * Maintainable structure
-* Scalable for CI/CD pipelines
-* Thread-safe ready (for parallel execution)
+* Scalable framework architecture
+* CI/CD compatible design
+* Clean reporting integration
 
 ---
 
@@ -133,10 +135,10 @@ Supports:
 
 ---
 
-# 📸 Screenshots & Videos
+# 📸 Screenshots
 
-* Screenshots captured on failure
-* Integrated with Allure reports
+* Screenshots captured automatically on failures
+* Integrated directly into Extent Reports
 
 ---
 
@@ -145,9 +147,9 @@ Supports:
 The project supports GitHub Actions for:
 
 * Build execution
-* Test execution
-* Allure report generation
-* Artifact upload
+* Automated test execution
+* Extent Report generation
+* Artifact uploads
 
 ---
 
@@ -160,7 +162,8 @@ Omphemetse L
 # 📌 Future Enhancements
 
 * Retry analyzer for flaky tests
-
+* Parallel test execution
+* Cross-browser testing support
 ---
 
 # ⭐ Summary
@@ -169,6 +172,7 @@ This framework is designed to be:
 
 * Clean
 * Scalable
+* Enterprise-ready
 * Interview-ready
+* Maintainable
 * CI/CD compatible
----

@@ -4,30 +4,39 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 
+import reports.ExtentManager;
 import utilities.ConfigReader;
 import utilities.DriverFactory;
+import utilities.ExtentReportManager;
 import utilities.ScreenshotUtil;
-import utilities.AllureManager;
 
 public class Hooks {
 
     ConfigReader configReader = new ConfigReader();
 
-
     @Before
     public void setup(Scenario scenario) {
 
-        String testName =
-                scenario.getName().replace(" ", "_");
+        // Create Extent Test
+        ExtentManager.createTest(
+                scenario.getName());
 
-        AllureManager.step("Starting scenario: " + scenario.getName());
+        ExtentReportManager.step(
+                "Starting Scenario: " + scenario.getName());
 
+        // Initialize Browser
         DriverFactory.initializeDriver();
 
-        DriverFactory.getDriver().get(
-                configReader.getProperty("baseUrl")
-        );
+        ExtentReportManager.step(
+                "Browser launched successfully");
 
+        // Open Application
+        DriverFactory.getDriver().get(
+                configReader.getProperty("baseUrl"));
+
+        ExtentReportManager.step(
+                "Navigated to URL: "
+                        + configReader.getProperty("baseUrl"));
     }
 
     @After
@@ -36,19 +45,34 @@ public class Hooks {
         String testName =
                 scenario.getName().replace(" ", "_");
 
-
+        // Scenario Status
         if (scenario.isFailed()) {
 
-            AllureManager.step("Scenario Failed: " + scenario.getName());
+            ExtentReportManager.step(
+                    "Scenario Failed: " + scenario.getName());
 
-            ScreenshotUtil.captureScreenshot(testName);
+            // Capture Screenshot
+            String screenshotPath =
+                    ScreenshotUtil.captureScreenshot(testName);
 
-            AllureManager.step("Screenshot captured for failure");
+            // Attach Screenshot to Extent Report
+            ExtentReportManager.attachScreenshot(
+                    "Failure Screenshot",
+                    screenshotPath);
+
+        } else {
+
+            ExtentReportManager.step(
+                    "Scenario Passed: " + scenario.getName());
         }
 
-
+        // Close Browser
         DriverFactory.quitDriver();
 
-        AllureManager.step("Browser closed for scenario");
+        ExtentReportManager.step(
+                "Browser closed successfully");
+
+        // Flush Report
+        ExtentManager.flushReport();
     }
 }
