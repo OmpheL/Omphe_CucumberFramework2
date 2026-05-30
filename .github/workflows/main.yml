@@ -3,12 +3,8 @@ name: Omphe Cucumber Framework Tests
 on:
   push:
     branches: ["main"]
-
   pull_request:
     branches: ["main"]
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   test:
@@ -25,29 +21,21 @@ jobs:
           java-version: 21
           cache: maven
 
-      - name: Cache Maven dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            maven-${{ runner.os }}-
-
-      - name: Build and Run Tests
+      - name: Run Tests
         run: mvn clean test -Dheadless=true
 
-      - name: Upload Extent Report
+      - name: Debug - List All Files
+        if: always()
+        run: |
+          ls -R target || true
+          ls -R test-output || true
+
+      - name: Upload Reports (Flexible)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Extent-report
-          path:  |
-            test-output/
-            
-      - name: Upload Screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: screenshots
+          name: test-artifacts
           path: |
-            target/screenshots
+            target/**
+            test-output/**
+          if-no-files-found: warn
