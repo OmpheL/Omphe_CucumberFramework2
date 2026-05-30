@@ -50,7 +50,7 @@ jobs:
         with:
           name: extent-report
           path: |
-            target/
+            test-output/
             **/extent-report*
             **/extent-reports*
           if-no-files-found: warn
