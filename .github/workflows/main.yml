@@ -36,20 +36,12 @@ jobs:
       - name: Build and Run Tests
         run: mvn clean test -Dheadless=true
 
-      - name: Debug - Show Generated Files
-        if: always()
-        run: |
-          echo "=== Project structure after tests ==="
-          ls -R target || true
-          echo "=== Root structure ==="
-          ls -R || true
-
       - name: Upload Extent Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: extent-report
-          path: 
+          name: Extent-report
+          path:  |
             test-output/
             
       - name: Upload Screenshots
