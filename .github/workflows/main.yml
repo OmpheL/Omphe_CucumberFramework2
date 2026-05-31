@@ -24,18 +24,11 @@ jobs:
       - name: Run Tests
         run: mvn clean test -Dheadless=true
 
-      - name: Debug - List All Files
-        if: always()
-        run: |
-          ls -R target || true
-          ls -R test-output || true
-
-      - name: Upload Reports (Flexible)
+      - name: Upload Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-artifacts
           path: |
-            target/**
             test-output/**
           if-no-files-found: warn
