@@ -30,5 +30,4 @@ jobs:
         with:
           name: test-artifacts
           path: |
-            test-output/**
-          if-no-files-found: warn
+            test-output/
